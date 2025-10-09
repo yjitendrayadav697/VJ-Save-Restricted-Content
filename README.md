@@ -10,6 +10,8 @@
 
 ## Variables
 
+- `LOGIN_SYSTEM` : Set True or False As per your need.
+- `STRING_SESSION` : if login is False then this variable is compulsory to fill.
 - `API_HASH` : Your API Hash From [Telegram Website](https://my.telegram.org)
 - `API_ID` : Your API ID From [Telegram Website](https://my.telegram.org)
 - `BOT_TOKEN` : Your Bot Token From [BotFather](https://telegram.me/BotFather)
