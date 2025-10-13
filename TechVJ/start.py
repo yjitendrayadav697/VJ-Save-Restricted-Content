@@ -105,15 +105,15 @@ async def save(client: Client, message: Message):
 
 		try:
 			try:
-                TechVJUser.join_chat(message.text)
-			except Exception as e: 
-				await client.send_message(message.chat.id,f"**Error** : __{e}__", reply_to_message_id=message.id)
-				return
-			await client.send_message(message.chat.id,"**Chat Joined**", reply_to_message_id=message.id)
-		except UserAlreadyParticipant:
-			await client.send_message(message.chat.id,"**Chat alredy Joined**", reply_to_message_id=message.id)
-		except InviteHashExpired:
-			await client.send_message(message.chat.id,"**Invalid Link**", reply_to_message_id=message.id)
+                await TechVJUser.join_chat(message.text)
+            except Exception as e: 
+                await client.send_message(message.chat.id,f"**Error** : __{e}__", reply_to_message_id=message.id)
+                return
+            await client.send_message(message.chat.id,"**Chat Joined**", reply_to_message_id=message.id)
+        except UserAlreadyParticipant:
+            await client.send_message(message.chat.id,"**Chat alredy Joined**", reply_to_message_id=message.id)
+        except InviteHashExpired:
+            await client.send_message(message.chat.id,"**Invalid Link**", reply_to_message_id=message.id)
 
     
     if "https://t.me/" in message.text:
