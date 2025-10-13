@@ -104,7 +104,7 @@ async def save(client: Client, message: Message):
 			return
 
 		try:
-			try:
+            try:
                 await TechVJUser.join_chat(message.text)
             except Exception as e: 
                 await client.send_message(message.chat.id,f"**Error** : __{e}__", reply_to_message_id=message.id)
