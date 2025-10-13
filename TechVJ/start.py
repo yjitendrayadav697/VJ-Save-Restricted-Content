@@ -114,7 +114,7 @@ async def save(client: Client, message: Message):
             await client.send_message(message.chat.id,"**Chat alredy Joined**", reply_to_message_id=message.id)
         except InviteHashExpired:
             await client.send_message(message.chat.id,"**Invalid Link**", reply_to_message_id=message.id)
-
+        return
     
     if "https://t.me/" in message.text:
         if batch_temp.IS_BATCH.get(message.from_user.id) == False:
