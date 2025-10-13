@@ -102,7 +102,6 @@ async def save(client: Client, message: Message):
 		if TechVJUser is None:
 			await client.send_message(message.chat.id,f"**String Session is not Set**", reply_to_message_id=message.id)
 			return
-
         try:
             try:
                 await TechVJUser.join_chat(message.text)
