@@ -1,4 +1,4 @@
-# Don't Remove Credit Tg - @VJ_Botz
+# Don't Remove Credit Tg - @VJ_Bots
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
 
@@ -8,7 +8,7 @@ import pyrogram
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated, UserAlreadyParticipant, InviteHashExpired, UsernameNotOccupied
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message 
-from config import API_ID, API_HASH, ERROR_MESSAGE, LOGIN_SYSTEM, STRING_SESSION
+from config import API_ID, API_HASH, ERROR_MESSAGE, LOGIN_SYSTEM, STRING_SESSION, CHANNEL_ID
 from database.db import db
 from TechVJ.strings import HELP_TXT
 from bot import TechVJUser
@@ -125,27 +125,28 @@ async def save(client: Client, message: Message):
             toID = int(temp[1].strip())
         except:
             toID = fromID
+
+        if LOGIN_SYSTEM == True:
+            user_data = await db.get_session(message.from_user.id)
+            if user_data is None:
+                await message.reply("**For Downloading Restricted Content You Have To /login First.**")
+                return
+            api_id = int(await db.get_api_id(message.from_user.id))
+            api_hash = await db.get_api_hash(message.from_user.id)
+            try:
+                acc = Client("saverestricted", session_string=user_data, api_hash=api_hash, api_id=api_id)
+                await acc.connect()
+            except:
+                return await message.reply("**Your Login Session Expired. So /logout First Then Login Again By - /login**")
+        else:
+            if TechVJUser is None:
+                await client.send_message(message.chat.id, f"**String Session is not Set**", reply_to_message_id=message.id)
+                return
+            acc = TechVJUser
+				
         batch_temp.IS_BATCH[message.from_user.id] = False
         for msgid in range(fromID, toID+1):
             if batch_temp.IS_BATCH.get(message.from_user.id): break
-            if LOGIN_SYSTEM == True:
-                user_data = await db.get_session(message.from_user.id)
-                if user_data is None:
-                    await message.reply("**For Downloading Restricted Content You Have To /login First.**")
-                    batch_temp.IS_BATCH[message.from_user.id] = True
-                    return
-                try:
-                    acc = Client("saverestricted", session_string=user_data, api_hash=API_HASH, api_id=API_ID)
-                    await acc.start()
-                except:
-                    batch_temp.IS_BATCH[message.from_user.id] = True
-                    return await message.reply("**Your Login Session Expired. So /logout First Then Login Again By - /login**")
-            else:
-                if TechVJUser is None:
-                    batch_temp.IS_BATCH[message.from_user.id] = True
-                    await client.send_message(message.chat.id, f"**String Session is not Set**", reply_to_message_id=message.id)
-                    return
-                acc = TechVJUser
             
             # private
             if "https://t.me/c/" in message.text:
@@ -185,6 +186,11 @@ async def save(client: Client, message: Message):
 
             # wait time
             await asyncio.sleep(3)
+        if LOGIN_SYSTEM == True:
+            try:
+                await acc.disconnect()
+			except:
+                pass
         batch_temp.IS_BATCH[message.from_user.id] = True
 
 
@@ -194,7 +200,10 @@ async def handle_private(client: Client, acc, message: Message, chatid: int, msg
     if msg.empty: return 
     msg_type = get_message_type(msg)
     if not msg_type: return 
-    chat = message.chat.id
+    if CHANNEL_ID:
+        chat = int(CHANNEL_ID)
+    else:
+        chat = message.chat.id
     if batch_temp.IS_BATCH.get(message.from_user.id): return 
     if "Text" == msg_type:
         try:
