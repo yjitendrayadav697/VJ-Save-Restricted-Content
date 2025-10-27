@@ -13,6 +13,8 @@ class Database:
             id = id,
             name = name,
             session = None,
+            api_id = None,
+            api_hash = None,
         )
     
     async def add_user(self, id, name):
@@ -40,4 +42,18 @@ class Database:
         user = await self.col.find_one({'id': int(id)})
         return user.get('session')
 
-db = Database(DB_URI, DB_NAME)
+    async def set_api_id(self, id, api_id):
+        await self.col.update_one({'id': int(id)}, {'$set': {'api_id': api_id}})
+
+    async def get_api_id(self, id):
+        user = await self.col.find_one({'id': int(id)})
+        return user.get('api_id')
+
+    async def set_api_hash(self, id, api_hash):
+        await self.col.update_one({'id': int(id)}, {'$set': {'api_hash': api_hash}})
+
+    async def get_api_hash(self, id):
+        user = await self.col.find_one({'id': int(id)})
+        return user.get('api_hash')
+
+db = Database(DB_URI, "TechVJDemoBot")
