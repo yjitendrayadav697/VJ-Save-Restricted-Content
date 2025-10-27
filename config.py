@@ -1,10 +1,14 @@
+# Don't Remove Credit Tg - @VJ_Bots
+# Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
+# Ask Doubt on telegram @KingVJ01
+
 import os
 
-# Login feature, if you want then True , if you dont want then False
+# Login feature, if you want then True , if you don't want then False
 LOGIN_SYSTEM = bool(os.environ.get('LOGIN_SYSTEM', True)) # True or False
 
 if LOGIN_SYSTEM == False:
-    # if login system is false then fill your tg account session below 
+    # if login system is False then fill your tg account session below 
     STRING_SESSION = os.environ.get("STRING_SESSION", "")
 else:
     STRING_SESSION = None
