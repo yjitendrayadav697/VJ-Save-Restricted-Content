@@ -8,7 +8,7 @@ import pyrogram
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated, UserAlreadyParticipant, InviteHashExpired, UsernameNotOccupied
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message 
-from config import API_ID, API_HASH, ERROR_MESSAGE, LOGIN_SYSTEM, STRING_SESSION, CHANNEL_ID
+from config import API_ID, API_HASH, ERROR_MESSAGE, LOGIN_SYSTEM, STRING_SESSION, CHANNEL_ID, WAITING_TIME
 from database.db import db
 from TechVJ.strings import HELP_TXT
 from bot import TechVJUser
@@ -185,7 +185,7 @@ async def save(client: Client, message: Message):
                             await client.send_message(message.chat.id, f"Error: {e}", reply_to_message_id=message.id)
 
             # wait time
-            await asyncio.sleep(10)
+            await asyncio.sleep(WAITING_TIME)
         if LOGIN_SYSTEM == True:
             try:
                 await acc.disconnect()
@@ -201,7 +201,10 @@ async def handle_private(client: Client, acc, message: Message, chatid: int, msg
     msg_type = get_message_type(msg)
     if not msg_type: return 
     if CHANNEL_ID:
-        chat = int(CHANNEL_ID)
+        try:
+            chat = int(CHANNEL_ID)
+        except:
+            chat = message.chat.id
     else:
         chat = message.chat.id
     if batch_temp.IS_BATCH.get(message.from_user.id): return 
