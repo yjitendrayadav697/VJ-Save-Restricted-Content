@@ -185,7 +185,7 @@ async def save(client: Client, message: Message):
                             await client.send_message(message.chat.id, f"Error: {e}", reply_to_message_id=message.id)
 
             # wait time
-            await asyncio.sleep(3)
+            await asyncio.sleep(10)
         if LOGIN_SYSTEM == True:
             try:
                 await acc.disconnect()
