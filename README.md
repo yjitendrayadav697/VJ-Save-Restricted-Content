@@ -2,6 +2,8 @@
 
 *A Telegram Bot, Which can send you restricted content by it's post link with <b>login feature</b>*
 
+*Added **TG Account Protection** Security To Prevent Account From Ban Issue, Not Totally But Now TG Account Ban Chance Is Low.*
+
 ---
 
 <b>Watch Video Tutorial - [Click Here](https://youtu.be/BFEvSX5vIMg)</b>
@@ -16,6 +18,7 @@
 - `API_ID` : Your API ID From [Telegram Website](https://my.telegram.org)
 - `BOT_TOKEN` : Your Bot Token From [BotFather](https://telegram.me/BotFather) ( ⚠️ Warning - Give Bot Token on deploy website environment variable, don't give in repo )
 - `ADMINS` : Your Admin Id For Broadcasting Message
+- `CHANNEL_ID` : Your Channel Id On Which Bot Upload Downloaded Content. ( And Make Your Bot Admin In This Channel With Full Rights )
 - `DB_URI` : Your Mongodb Database Url From [Mongodb](https://mongodb.com) Watch [Video Tutorial](https://youtu.be/DAHRmFdw99o) ( ⚠️ Warning - Give Db Url on deploy website environment variable, don't give in repo )
 - `ERROR_MESSAGE` : Set True Or False, If You Want Error Message Then True Else False.
 
