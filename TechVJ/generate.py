@@ -35,11 +35,25 @@ async def main(bot: Client, message: Message):
         await message.reply("**Your Are Already Logged In. First /logout Your Old Session. Then Do Login.**")
         return 
     user_id = int(message.from_user.id)
+    await message.reply("**How To Create Api Id And Api Hash.\n\nVideo Link :- https://youtu.be/LDtgwpI-N7M**")
+    api_id_msg = await bot.ask(user_id, "<b>Send Your API ID.\n\nClick On /skip To Skip This Process\n\nNOTE :- If You Skip This Then Your Account Ban Chance Is High.</b>", filters=filters.text)
+    if api_id_msg.text == "/skip":
+        api_id = API_ID
+        api_hash = API_HASH
+    else:
+        try:
+            api_id = int(api_id_msg.text)
+        except ValueError:
+            await api_id_msg.reply("**Api id must be an integer, start your process again by /login**", quote=True, reply_markup=InlineKeyboardMarkup(gen_button))
+            return
+        api_hash_msg = await bot.ask(user_id, "**Now Send Me Your API HASH**", filters=filters.text)
+        api_hash = api_hash_msg.text
+        
     phone_number_msg = await bot.ask(chat_id=user_id, text="<b>Please send your phone number which includes country code</b>\n<b>Example:</b> <code>+13124562345, +9171828181889</code>")
     if phone_number_msg.text=='/cancel':
         return await phone_number_msg.reply('<b>process cancelled !</b>')
     phone_number = phone_number_msg.text
-    client = Client(":memory:", API_ID, API_HASH)
+    client = Client(":memory:", api_id, api_hash)
     await client.connect()
     await phone_number_msg.reply("Sending OTP...")
     try:
@@ -76,9 +90,15 @@ async def main(bot: Client, message: Message):
     try:
         user_data = await db.get_session(message.from_user.id)
         if user_data is None:
-            uclient = Client(":memory:", session_string=string_session, api_id=API_ID, api_hash=API_HASH)
+            uclient = Client(":memory:", session_string=string_session, api_id=api_id, api_hash=api_hash)
             await uclient.connect()
             await db.set_session(message.from_user.id, session=string_session)
+            await db.set_api_id(message.from_user.id, api_id=api_id)
+            await db.set_api_hash(message.from_user.id, api_hash=api_hash)
+            try:
+                await uclient.disconnect()
+            except:
+                pass
     except Exception as e:
         return await message.reply_text(f"<b>ERROR IN LOGIN:</b> `{e}`")
     await bot.send_message(message.from_user.id, "<b>Account Login Successfully.\n\nIf You Get Any Error Related To AUTH KEY Then /logout first and /login again</b>")
