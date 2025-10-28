@@ -14,8 +14,8 @@
 
 - `LOGIN_SYSTEM` : Set True or False As per your need.
 - `STRING_SESSION` : Your Tg Account Session String, if login is False then this variable is compulsory to fill. ( ⚠️ Warning - Give string session on deploy website environment variable, don't give in repo )
-- `API_HASH` : Your API Hash From [Telegram Website](https://my.telegram.org)
-- `API_ID` : Your API ID From [Telegram Website](https://my.telegram.org)
+- `API_HASH` : Your API Hash From [Telegram Website](https://my.telegram.org) Watch [Video Tutorial](https://youtu.be/LDtgwpI-N7M)
+- `API_ID` : Your API ID From [Telegram Website](https://my.telegram.org) Watch [Video Tutorial](https://youtu.be/LDtgwpI-N7M)
 - `BOT_TOKEN` : Your Bot Token From [BotFather](https://telegram.me/BotFather) ( ⚠️ Warning - Give Bot Token on deploy website environment variable, don't give in repo )
 - `ADMINS` : Your Admin Id For Broadcasting Message
 - `CHANNEL_ID` : Your Channel Id On Which Bot Upload Downloaded Content. ( And Make Your Bot Admin In This Channel With Full Rights )
