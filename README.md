@@ -20,6 +20,7 @@
 - `ADMINS` : Your Admin Id For Broadcasting Message
 - `CHANNEL_ID` : Your Channel Id On Which Bot Upload Downloaded Content. ( And Make Your Bot Admin In This Channel With Full Rights )
 - `DB_URI` : Your Mongodb Database Url From [Mongodb](https://mongodb.com) Watch [Video Tutorial](https://youtu.be/DAHRmFdw99o) ( ⚠️ Warning - Give Db Url on deploy website environment variable, don't give in repo )
+- `WAITING_TIME` : Increase Time To Avoid Spamming, Floodwait and Tg Account Ban Issue.
 - `ERROR_MESSAGE` : Set True Or False, If You Want Error Message Then True Else False.
 
 ---
