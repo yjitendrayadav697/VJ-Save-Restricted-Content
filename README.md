@@ -13,7 +13,7 @@
 ## Variables
 
 - `LOGIN_SYSTEM` : Set True or False As per your need.
-- `STRING_SESSION` : if login is False then this variable is compulsory to fill. ( ⚠️ Warning - Give string session on deploy website environment variable, don't give in repo )
+- `STRING_SESSION` : Your Tg Account Session String, if login is False then this variable is compulsory to fill. ( ⚠️ Warning - Give string session on deploy website environment variable, don't give in repo )
 - `API_HASH` : Your API Hash From [Telegram Website](https://my.telegram.org)
 - `API_ID` : Your API ID From [Telegram Website](https://my.telegram.org)
 - `BOT_TOKEN` : Your Bot Token From [BotFather](https://telegram.me/BotFather) ( ⚠️ Warning - Give Bot Token on deploy website environment variable, don't give in repo )
