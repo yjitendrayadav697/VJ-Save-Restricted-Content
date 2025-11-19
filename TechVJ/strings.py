@@ -12,7 +12,7 @@ then send post/s link__
 
 **__FOR BOT CHATS__**
 
-__send link with '/b/', bot's username and message id, you might want to install some unofficial client to get the id like below__
+__send link with '/b/', bot's username and message id, you might want to install some unofficial client (like - Plus Messenger) to get the id like below__
 
 ```
 https://t.me/b/botusername/4321
@@ -31,6 +31,6 @@ https://t.me/c/xxxx/101 - 120
 
 __note that space in between doesn't matter__"""
        
-# Don't Remove Credit Tg - @VJ_Botz
+# Don't Remove Credit Tg - @VJ_Bots
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
