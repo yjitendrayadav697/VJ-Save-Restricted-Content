@@ -51,7 +51,7 @@ then send post/s link_
 
 __FOR BOT CHATS__
 
-_send link with '/b/', bot's username and message id, you might want to install some unofficial client to get the id like below_
+_send link with '/b/', bot's username and message id, you might want to install some unofficial client (like - Plus Messenger) to get the id like below_
 
 ```
 https://t.me/b/botusername/4321
