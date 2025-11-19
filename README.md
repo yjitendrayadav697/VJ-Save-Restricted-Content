@@ -1,5 +1,13 @@
 # VJ Save Restricted Bot
 
+<p align="center">
+  <img src="https://i.ibb.co/dJ0gpJf1/photo-2025-06-16-12-07-05-7516517596376596504.jpg" alt="VJ Save Restricted Bot Logo">
+</p>
+<h1 align="center">
+  VJ Save Restricted Bot
+</h1>
+
+
 *A Telegram Bot, Which Can Send You Restricted Content By It's Post Link With <b>Login Feature.</b>*
 
 *Added **TG Account Protection** Security To Prevent Account From Ban Issue, Not Totally But Now TG Account Ban Chance Is Low.*
