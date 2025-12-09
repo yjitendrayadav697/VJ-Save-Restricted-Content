@@ -1,6 +1,15 @@
-# VJ Save Restricted Bot
 
-*A Telegram Bot, Which can send you restricted content by it's post link with <b>login feature</b>*
+<p align="center">
+  <img src="https://i.ibb.co/dJ0gpJf1/photo-2025-06-16-12-07-05-7516517596376596504.jpg" alt="VJ Save Restricted Bot Logo">
+</p>
+<h1 align="center">
+  VJ Save Restricted Bot
+</h1>
+
+
+*A Telegram Bot, Which Can Send You Restricted Content By It's Post Link With <b>Login Feature.</b>*
+
+*Added **TG Account Protection** Security To Prevent Account From Ban Issue, Not Totally But Now TG Account Ban Chance Is Low.*
 
 ---
 
@@ -12,11 +21,15 @@
 
 ## Variables
 
-- `API_HASH` : Your API Hash From [Telegram Website](https://my.telegram.org)
-- `API_ID` : Your API ID From [Telegram Website](https://my.telegram.org)
-- `BOT_TOKEN` : Your Bot Token From [BotFather](https://telegram.me/BotFather)
+- `LOGIN_SYSTEM` : Set True or False As per your need.
+- `STRING_SESSION` : Your Tg Account Session String, if login is False then this variable is compulsory to fill. ( ⚠️ Warning - Give string session on deploy website environment variable, don't give in repo )
+- `API_HASH` : Your API Hash From [Telegram Website](https://my.telegram.org) Watch [Video Tutorial](https://youtu.be/LDtgwpI-N7M)
+- `API_ID` : Your API ID From [Telegram Website](https://my.telegram.org) Watch [Video Tutorial](https://youtu.be/LDtgwpI-N7M)
+- `BOT_TOKEN` : Your Bot Token From [BotFather](https://telegram.me/BotFather) ( ⚠️ Warning - Give Bot Token on deploy website environment variable, don't give in repo )
 - `ADMINS` : Your Admin Id For Broadcasting Message
-- `DB_URI` : Your Mongodb Database Url From [Mongodb](https://mongodb.com) Watch [Video Tutorial](https://youtu.be/DAHRmFdw99o) ( Warning - Give Db uri in deploy server environment variable, don't give in repo )
+- `CHANNEL_ID` : Your Channel Id On Which Bot Upload Downloaded Content. ( And Make Your Bot Admin In This Channel With Full Rights )
+- `DB_URI` : Your Mongodb Database Url From [Mongodb](https://mongodb.com) Watch [Video Tutorial](https://youtu.be/DAHRmFdw99o) ( ⚠️ Warning - Give Db Url on deploy website environment variable, don't give in repo )
+- `WAITING_TIME` : Increase Time To Avoid Spamming, Floodwait and Tg Account Ban Issue.
 - `ERROR_MESSAGE` : Set True Or False, If You Want Error Message Then True Else False.
 
 ---
@@ -47,7 +60,7 @@ then send post/s link_
 
 __FOR BOT CHATS__
 
-_send link with '/b/', bot's username and message id, you might want to install some unofficial client to get the id like below_
+_send link with '/b/', bot's username and message id, you might want to install some unofficial client (like - Plus Messenger) to get the id like below_
 
 ```
 https://t.me/b/botusername/4321
@@ -71,4 +84,4 @@ _note that space in between doesn't matter_
 ## Credits
 
 - <b>Thanks To [BipinKrish](https://github.com/bipinkrish) For Base Repo
-- Thanks To [Tech VJ](https://telegram.dog/Kingvj01) For Modify & Added Login Feature.</b>
+- Thanks To [Tech VJ](https://github.com/VJBots) For Modification.</b>

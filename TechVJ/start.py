@@ -1,4 +1,4 @@
-# Don't Remove Credit Tg - @VJ_Botz
+# Don't Remove Credit Tg - @VJ_Bots
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
 
@@ -8,9 +8,10 @@ import pyrogram
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated, UserAlreadyParticipant, InviteHashExpired, UsernameNotOccupied
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message 
-from config import API_ID, API_HASH, ERROR_MESSAGE
+from config import API_ID, API_HASH, ERROR_MESSAGE, LOGIN_SYSTEM, STRING_SESSION, CHANNEL_ID, WAITING_TIME
 from database.db import db
 from TechVJ.strings import HELP_TXT
+from bot import TechVJUser
 
 class batch_temp(object):
     IS_BATCH = {}
@@ -64,7 +65,7 @@ async def send_start(client: Client, message: Message):
         InlineKeyboardButton("❣️ Developer", url = "https://t.me/kingvj01")
     ],[
         InlineKeyboardButton('🔍 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ', url='https://t.me/vj_bot_disscussion'),
-        InlineKeyboardButton('🤖 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ', url='https://t.me/vj_botz')
+        InlineKeyboardButton('🤖 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ', url='https://t.me/vj_bots')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
@@ -95,6 +96,24 @@ async def send_cancel(client: Client, message: Message):
 
 @Client.on_message(filters.text & filters.private)
 async def save(client: Client, message: Message):
+    # Joining chat
+    if ("https://t.me/+" in message.text or "https://t.me/joinchat/" in message.text) and LOGIN_SYSTEM == False:
+        if TechVJUser is None:
+            await client.send_message(message.chat.id, "String Session is not Set", reply_to_message_id=message.id)
+            return
+        try:
+            try:
+                await TechVJUser.join_chat(message.text)
+            except Exception as e: 
+                await client.send_message(message.chat.id, f"Error : {e}", reply_to_message_id=message.id)
+                return
+            await client.send_message(message.chat.id, "Chat Joined", reply_to_message_id=message.id)
+        except UserAlreadyParticipant:
+            await client.send_message(message.chat.id, "Chat already Joined", reply_to_message_id=message.id)
+        except InviteHashExpired:
+            await client.send_message(message.chat.id, "Invalid Link", reply_to_message_id=message.id)
+        return
+    
     if "https://t.me/" in message.text:
         if batch_temp.IS_BATCH.get(message.from_user.id) == False:
             return await message.reply_text("**One Task Is Already Processing. Wait For Complete It. If You Want To Cancel This Task Then Use - /cancel**")
@@ -105,20 +124,28 @@ async def save(client: Client, message: Message):
             toID = int(temp[1].strip())
         except:
             toID = fromID
-        batch_temp.IS_BATCH[message.from_user.id] = False
-        for msgid in range(fromID, toID+1):
-            if batch_temp.IS_BATCH.get(message.from_user.id): break
+
+        if LOGIN_SYSTEM == True:
             user_data = await db.get_session(message.from_user.id)
             if user_data is None:
                 await message.reply("**For Downloading Restricted Content You Have To /login First.**")
-                batch_temp.IS_BATCH[message.from_user.id] = True
                 return
+            api_id = int(await db.get_api_id(message.from_user.id))
+            api_hash = await db.get_api_hash(message.from_user.id)
             try:
-                acc = Client("saverestricted", session_string=user_data, api_hash=API_HASH, api_id=API_ID)
+                acc = Client("saverestricted", session_string=user_data, api_hash=api_hash, api_id=api_id)
                 await acc.connect()
             except:
-                batch_temp.IS_BATCH[message.from_user.id] = True
                 return await message.reply("**Your Login Session Expired. So /logout First Then Login Again By - /login**")
+        else:
+            if TechVJUser is None:
+                await client.send_message(message.chat.id, f"**String Session is not Set**", reply_to_message_id=message.id)
+                return
+            acc = TechVJUser
+				
+        batch_temp.IS_BATCH[message.from_user.id] = False
+        for msgid in range(fromID, toID+1):
+            if batch_temp.IS_BATCH.get(message.from_user.id): break
             
             # private
             if "https://t.me/c/" in message.text:
@@ -157,7 +184,12 @@ async def save(client: Client, message: Message):
                             await client.send_message(message.chat.id, f"Error: {e}", reply_to_message_id=message.id)
 
             # wait time
-            await asyncio.sleep(3)
+            await asyncio.sleep(WAITING_TIME)
+        if LOGIN_SYSTEM == True:
+            try:
+                await acc.disconnect()
+            except:
+                pass                				
         batch_temp.IS_BATCH[message.from_user.id] = True
 
 
@@ -167,7 +199,13 @@ async def handle_private(client: Client, acc, message: Message, chatid: int, msg
     if msg.empty: return 
     msg_type = get_message_type(msg)
     if not msg_type: return 
-    chat = message.chat.id
+    if CHANNEL_ID:
+        try:
+            chat = int(CHANNEL_ID)
+        except:
+            chat = message.chat.id
+    else:
+        chat = message.chat.id
     if batch_temp.IS_BATCH.get(message.from_user.id): return 
     if "Text" == msg_type:
         try:
@@ -321,3 +359,7 @@ def get_message_type(msg: pyrogram.types.messages_and_media.message.Message):
     except:
         pass
         
+
+# Don't Remove Credit @VJ_Bots
+# Subscribe YouTube Channel For Amazing Bot @Tech_VJ
+# Ask Doubt on telegram @KingVJ01
